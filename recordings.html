@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>පන්ති පටිගත කිරීම් - අපේ ගණිත පන්තිය</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #F7F9FB;
+            --text-color: #333333;
+            --primary-color: #0077B6;
+            --accent-color: #48BB78; /* Fresh Green */
+            --card-bg: #ffffff;
+            --border-color: #E0E0E0;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --shadow-hover-color: rgba(0, 0, 0, 0.1);
+
+            --primary-color-rgb: 0, 119, 182;
+            --accent-color-rgb: 72, 187, 120;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .header {
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 25px 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-weight: 700;
+            font-size: 2.8em;
+            letter-spacing: 0.5px;
+        }
+        .header p {
+            font-weight: 300;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 8px 0;
+        }
+        .navbar-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
+        .navbar a {
+            color: var(--primary-color);
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            transition: color 0.3s ease, background-color 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            font-size: 1em;
+            border-radius: 6px;
+        }
+        .navbar a:hover, .navbar a.active {
+            color: var(--accent-color);
+            background-color: rgba(var(--primary-color-rgb), 0.05);
+        }
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section { /* recordings page section might need slightly different padding */
+            padding: 40px 0; /* Adjusted padding for content page */
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjusted minmax for potentially wider video cards */
+            gap: 25px;
+        }
+
+        .styled-card { /* Re-using from main site */
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        .styled-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 18px var(--shadow-hover-color);
+        }
+        
+        /* Styles for Recording Cards */
+        .recording-card { 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .video-player-wrapper {
+            width: 100%;
+            margin-bottom: 20px; /* Increased margin */
+            background-color: #111; /* Darker background for video player area */
+            border-radius: 8px; 
+            overflow: hidden; 
+            position: relative; /* For aspect ratio padding trick if needed, or for poster styling */
+        }
+
+        .video-player-wrapper video {
+            width: 100%;
+            display: block; 
+            height: auto; /* Maintain aspect ratio */
+            max-height: 450px; /* Control max height */
+            border-radius: 8px; /* Match wrapper if poster doesn't cover */
+        }
+        
+        .video-player-wrapper video::-webkit-media-controls-panel { /* Example for styling controls if needed */
+            background-color: rgba(0,0,0,0.7);
+        }
+
+
+        .recording-content {
+            padding-top: 0px; /* Adjusted as video wrapper has margin-bottom */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recording-content h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.3em; /* Slightly smaller for recording titles */
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .recording-content .recording-date {
+            font-size: 0.8em;
+            color: #6c757d; /* Softer gray */
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+         .recording-content .recording-date i {
+            margin-right: 6px;
+            color: var(--accent-color);
+         }
+
+        .recording-content .recording-description {
+            font-size: 0.9em;
+            color: #555e68; 
+            margin-bottom: 15px;
+            line-height: 1.6;
+            flex-grow: 1; /* Pushes button to bottom if present */
+        }
+        
+        .btn-primary { /* Copied from main site, ensure it's here if not in external CSS */
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px; /* Slightly smaller padding */
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.95em; /* Slightly smaller font */
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 3px 10px rgba(var(--primary-color-rgb), 0.25);
+            text-align: center;
+        }
+        .btn-primary:hover {
+            background-color: #005A8D;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.35);
+        }
+        .btn-primary i { margin-right: 8px; }
+
+
+        .footer { /* Copied from main site */
+            background: var(--primary-color);
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px; /* Ensures space before footer */
+        }
+        .footer .social-links { margin-bottom: 20px; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 42px; height: 42px;
+            margin: 0 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255, 0.12);
+            color: #ffffff;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.2em;
+        }
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: #ffffff; 
+            transform: translateY(-4px);
+        }
+        .footer p { font-size: 0.9em; opacity: 0.9; }
+        .footer p a { color: #ffffff; text-decoration: none; font-weight: 500;}
+        .footer p a:hover { text-decoration: underline; color: var(--accent-color);}
+
+        /* Responsive Adjustments for recording cards */
+        @media screen and (max-width: 768px) {
+            .card-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+            .recording-content h3 {
+                font-size: 1.2em;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><i class="fas fa-graduation-cap"></i> අපේ ගණිත පන්තිය</h1>
+        <p>ගණිත දැනුමෙන් අනාගතය ජයගන්න!</p>
+    </div>
+
+    <div class="navbar">
+        <div class="navbar-container">
+            <a href="index.html#home">මුල් පිටුව</a>
+            <a href="index.html#courses">පාඨමාලා</a>
+            <a href="recordings.html" class="active">පටිගත කිරීම්</a> <a href="index.html#gallery">ඡායාරූප/වීඩියෝ</a>
+            <a href="index.html#teachers">ගුරුවරුන්</a>
+            <a href="index.html#contact">සම්බන්ධ වන්න</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="section recordings-section">
+            <h2 class="section-title" data-aos="fade-up">මාර්ගගත පන්ති පටිගත කිරීම්</h2>
+            
+            <div class="card-grid">
+                <div class="styled-card recording-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="video-player-wrapper">
+                        <video controls poster="/api/placeholder/400/225?text=පාඩම+1+Poster&bgColor=0077B6&textColor=FFFFFF">
+                            <source src="videos/recording_01.mp4" type="video/mp4">
+                            <source src="videos/recording_01.webm" type="video/webm">
+                            ඔබගේ බ්‍රවුසරය මෙම වීඩියෝ ආකෘතියට සහය නොදක්වයි.
+                        </video>
+                    </div>
+                    <div class="recording-content">
+                        <h3>10 ශ්‍රේණිය - වීජ ගණිතය: ප්‍රකාශන සුළු කිරීම</h3>
+                        <p class="recording-date"><i class="fas fa-calendar-alt"></i> 2025 මැයි 01</p>
+                        <p class="recording-description">මෙම පාඩමෙන් 10 ශ්‍රේණියට අදාළ වීජ ගණිත ප්‍රකාශන සුළු කරන ආකාරය සරලව පැහැදිලි කරයි.</p>
+                        </div>
+                </div>
+
+                <div class="styled-card recording-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="video-player-wrapper">
+                        <video controls poster="/api/placeholder/400/225?text=පාඩම+2+Poster&bgColor=48BB78&textColor=FFFFFF">
+                             <source src="videos/recording_02.mp4" type="video/mp4">
+                            ඔබගේ බ්‍රවුසරය මෙම වීඩියෝ ආකෘතියට සහය නොදක්වයි.
+                        </video>
+                    </div>
+                    <div class="recording-content">
+                        <h3>සාමාන්‍ය පෙළ - ජ්‍යාමිතිය: ත්‍රිකෝණ අංගසාම්‍යය</h3>
+                        <p class="recording-date"><i class="fas fa-calendar-alt"></i> 2025 අප්‍රේල් 25</p>
+                        <p class="recording-description">සාමාන්‍ය පෙළ විභාගයට අත්‍යාවශ්‍ය ජ්‍යාමිතිය පාඩමක් වන ත්‍රිකෝණ අංගසාම්‍යය පිළිබඳ සම්පූර්ණ විග්‍රහයක්.</p>
+                    </div>
+                </div>
+
+                <div class="styled-card recording-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="video-player-wrapper">
+                        <video controls poster="/api/placeholder/400/225?text=පාඩම+3+Poster&bgColor=333333&textColor=FFFFFF">
+                             <source src="videos/recording_03.mp4" type="video/mp4">
+                            ඔබගේ බ්‍රවුසරය මෙම වීඩියෝ ආකෘතියට සහය නොදක්වයි.
+                        </video>
+                    </div>
+                    <div class="recording-content">
+                        <h3>9 ශ්‍රේණිය - සංඛ්‍යා රටා</h3>
+                        <p class="recording-date"><i class="fas fa-calendar-alt"></i> 2025 අප්‍රේල් 18</p>
+                        <p class="recording-description">9 ශ්‍රේණියේ දරුවන් සඳහා සංඛ්‍යා රටා හඳුනාගැනීම සහ ගැටලු විසඳීම.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/16Z4KhFsdo/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://wa.me/+94772896110" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>&copy; <span id="currentYear"></span> අපේ ගණිත පන්තිය. සියලුම හිමිකම් ඇවිරිණි.</p>
+        <p>නිර්මාණය සහ සංවර්ධනය <a href="#">Elegant Web Creations</a> විසිනි.</p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 700, 
+                easing: 'ease-out-cubic', 
+                once: true, 
+                offset: 80, 
+            });
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // Smooth scroll for anchor links - for main page index.html
+            // This recordings.html page doesn't need complex active link highlighting based on scroll.
+            // The "පටිගත කිරීම්" link is already marked active in HTML.
+            // However, if there were internal #links on this page, this script could be adapted.
+            const navLinks = document.querySelectorAll('.navbar a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Check if the link is to an external page or a section on an external page
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('index.html#')) {
+                        // Allow default navigation for external page anchors
+                        return;
+                    }
+                    // For same-page anchors (if any in future on recordings.html)
+                    if (this.hash !== "" && href.startsWith('#')) { 
+                        e.preventDefault();
+                        const hash = this.hash;
+                        const targetElement = document.querySelector(hash);
+                        if(targetElement) {
+                            const navbarHeight = document.querySelector('.navbar').offsetHeight;
+                            const offsetTop = targetElement.offsetTop - navbarHeight - 20; 
+                            window.scrollTo({ top: offsetTop, behavior: "smooth" });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

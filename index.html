@@ -3,511 +3,863 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>මගේ ගණන පන්තිය</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>අපේ ගණිත පන්තිය - පිවිසෙන්න</title> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Nunito', 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            overflow-x: hidden;
+        :root {
+            --bg-color: #F7F9FB;              /* ඉතා ලා නිල්-අළු පැහැති පසුබිම */
+            --text-color: #333333;            /* තද අළු පැහැති අකුරු */
+            --primary-color: #0077B6;          /* ප්‍රධාන වර්ණය - සාගර නිල් (Ocean Blue) */
+            --accent-color: #48BB78;         /* අවධාරණ වර්ණය - නැවුම් කොළ (Fresh Green) */
+            --card-bg: #ffffff;               /* කාඩ්පත් සඳහා සුදු පසුබිම */
+            --border-color: #E0E0E0;          /* ලා අළු මායිම් රේඛා */
+            --shadow-color: rgba(0, 0, 0, 0.05); /* මෘදු සෙවනැලි */
+            --shadow-hover-color: rgba(0, 0, 0, 0.1); /* මෘදු සෙවනැලි - hover */
+
+            --primary-color-rgb: 0, 119, 182;
+            --accent-color-rgb: 72, 187, 120;
         }
 
-        .header {
-            background: linear-gradient(135deg, #4a1d79 0%, #7d36c9 100%);
-            color: white;
-            padding: 20px 0;
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', 'Arial', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Login Form Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #EDF2F7 100%);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px var(--shadow-hover-color);
+            width: 100%;
+            max-width: 400px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .login-box h2 {
+            font-size: 2em;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .login-box .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-box label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4A5568;
+            font-size: 0.9em;
+        }
+
+        .login-box input[type="email"],
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            background: #FBFCFE;
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .login-box input[type="email"]:focus,
+        .login-box input[type="password"]:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.15);
+            outline: none;
+        }
+
+        .login-box .error-message {
+            color: #E53E3E; /* Red color */
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            min-height: 1.2em; /* Reserve space */
+        }
+
+        .login-box button {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+            box-shadow: 0 3px 10px rgba(var(--primary-color-rgb), 0.25);
+        }
+         .login-box button:hover {
+            background-color: #005A8D;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.35);
+        }
+
+        /* --- End Login Form Styles --- */
+
+
+        .header {
+            background: var(--primary-color);
+            color: #ffffff;
+            padding: 25px 0;
+            text-align: center;
+        }
+        .header h1 {
+            font-weight: 700;
+            font-size: 2.8em;
+            letter-spacing: 0.5px;
+        }
+        .header p {
+            font-weight: 300;
+            font-size: 1.1em;
+            opacity: 0.9;
         }
 
         .navbar {
-            background-color: #333;
-            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(8px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px var(--shadow-color);
+            padding: 8px 0;
         }
-
+        .navbar-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+        }
         .navbar a {
-            float: left;
-            display: block;
-            color: white;
+            color: var(--primary-color);
             text-align: center;
-            padding: 14px 16px;
+            padding: 14px 20px;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease;
             position: relative;
+            font-weight: 500;
+            font-size: 1em;
+            border-radius: 6px;
         }
-
-        .navbar a:before {
-            content: "";
+        .navbar a:hover, .navbar a.active {
+            color: var(--accent-color);
+            background-color: rgba(var(--primary-color-rgb), 0.05);
+        }
+        .navbar a.active::after {
+            content: '';
             position: absolute;
-            width: 0;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
             height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #4a1d79;
-            visibility: hidden;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .navbar a:hover:before {
-            visibility: visible;
-            width: 100%;
-        }
-
-        .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: var(--accent-color);
+            border-radius: 2px;
         }
 
         .main-content {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 15px rgba(0,0,0,0.05);
-            border-radius: 8px;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .footer {
-            background: linear-gradient(135deg, #333 0%, #222 100%);
-            color: white;
-            text-align: center;
-            padding: 30px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-            margin-top: 30px; /* Added margin to prevent overlap */
+        .section {
+            padding: 50px 0;
+            margin-bottom: 30px;
+            background-color: transparent;
         }
 
         .hero-section {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/api/placeholder/1200/400'); /* Placeholder Image */
-            color: white;
-            padding: 120px 20px;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #EDF2F7 100%);
+            color: var(--text-color);
             text-align: center;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            overflow: hidden;
+            padding: 80px 20px 60px 20px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 20px var(--shadow-color);
         }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(74, 29, 121, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
-            z-index: 1;
-        }
-
-        .feature-section {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin: 40px 0;
-        }
-
-        .feature-box {
-            flex: 0 0 30%;
-            padding: 30px 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .hero-content h2 {
+            font-size: 3.2em;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.3;
             margin-bottom: 20px;
-            text-align: center;
-            border-radius: 8px;
-            transition: all 0.5s ease;
-            background: white;
-            overflow: hidden;
-            position: relative;
+            /* Animation will be applied after login */
         }
-
-        .feature-box:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, #4a1d79, #7d36c9);
-            transition: height 0.3s ease;
+        .hero-content p {
+            font-size: 1.15em;
+            font-weight: 400;
+            color: #555e68;
+            margin-bottom: 30px;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+             /* Animation will be applied after login */
         }
-
-        .feature-box:hover:before {
-            height: 10px;
-        }
-
-        .feature-box:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .feature-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: #4a1d79;
+        .stat-item {
+            background-color: rgba(var(--primary-color-rgb), 0.07);
+            border: 1px solid rgba(var(--primary-color-rgb), 0.15);
+            padding: 10px 20px; margin: 8px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: 500;
             transition: all 0.3s ease;
+            color: var(--primary-color);
         }
-
-        .feature-box:hover .feature-icon {
-            transform: scale(1.2);
-            color: #7d36c9;
+        .stat-item:hover {
+            background-color: rgba(var(--primary-color-rgb), 0.12);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+        .stat-item i {
+            margin-right: 8px;
+            color: var(--accent-color);
         }
 
         .btn-primary {
-            background: linear-gradient(45deg, #4a1d79, #7d36c9);
-            color: white;
+            background-color: var(--primary-color);
+            color: #ffffff;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
+            padding: 14px 30px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(74, 29, 121, 0.4);
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            text-decoration: none; /* Ensure button text is not underlined if used with <a> */
-            display: inline-block; /* Alignment */
-        }
-
-        .btn-primary:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #7d36c9, #4a1d79);
-            transition: all 0.5s ease;
-            z-index: -1;
-        }
-
-        .btn-primary:hover:before {
-            left: 0;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(74, 29, 121, 0.5);
-            color: white; /* Ensure text color remains white on hover */
-        }
-
-        .social-links a {
+            font-size: 1em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
             display: inline-block;
-            width: 40px;
-            height: 40px;
-            line-height: 40px;
-            margin: 0 10px;
-            text-align: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(var(--primary-color-rgb), 0.25);
         }
-
-        .social-links a:hover {
-            background: white;
-            color: #4a1d79;
-            transform: translateY(-5px);
+        .btn-primary:hover {
+            background-color: #005A8D;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.35);
         }
-
-        .course-card {
-            position: relative;
-            transition: all 0.5s ease;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .course-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .course-badge {
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: linear-gradient(45deg, #4a1d79, #7d36c9);
-            color: white;
-            padding: 8px 15px;
-            border-radius: 0 10px 0 15px;
-            font-weight: bold;
-        }
-
-        .course-content {
-            padding: 20px;
-        }
+        .btn-primary i { margin-right: 8px; }
 
         .section-title {
+            text-align: center;
+            font-size: 2.4em;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 40px;
             position: relative;
-            display: inline-block;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
-            color: #333; /* Added color for better visibility */
+            padding-bottom: 15px;
         }
-
-        .section-title:after {
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
-            width: 100%; /* Underline full width */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
             height: 3px;
-            background: linear-gradient(to right, #4a1d79, #7d36c9);
+            background-color: var(--accent-color);
+            border-radius: 2px;
         }
 
-        /* Input and Textarea basic styling */
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: calc(100% - 22px); /* Adjust width considering padding and border */
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-bottom: 15px; /* Consistent spacing */
-            font-family: 'Nunito', sans-serif; /* Ensure font consistency */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
         }
 
-        textarea {
-            resize: vertical; /* Allow vertical resizing */
+        .styled-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+        .styled-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 18px var(--shadow-hover-color);
         }
 
-        label {
-             display: block;
-             margin-bottom: 5px;
-             font-weight: 600; /* Make labels slightly bold */
-             color: #555; /* Dark grey color for labels */
+        .feature-box {
+            text-align: center;
+        }
+        .feature-icon {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            transition: transform 0.3s ease;
+        }
+        .feature-box:hover .feature-icon {
+            transform: scale(1.08);
+        }
+        .feature-box h3 {
+            font-weight: 600;
+            font-size: 1.3em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+        .feature-box p {
+            font-size: 0.95em;
+            color: #555e68;
+            line-height: 1.6;
         }
 
+        .course-card {
+            display: flex;
+            flex-direction: column;
+        }
+        .course-image-placeholder {
+            height: 160px;
+            background-color: #E2E8F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 3em;
+            border-radius: 8px 8px 0 0;
+            margin: -25px -25px 20px -25px;
+        }
+        .course-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .course-content h3 {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+        .course-content p {
+            font-size: 0.9em;
+            color: #555e68;
+            margin-bottom: 10px;
+        }
+        .course-content p strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+        .course-content .btn-primary {
+            margin-top: auto;
+            width: 100%;
+            padding: 12px 20px;
+            font-size: 0.95em;
+        }
 
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 5px 12px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            background-color: #000;
+        }
+        .gallery-item img,
+        .gallery-item video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .gallery-item .caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            color: white;
+            padding: 20px 15px 15px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 1em;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px var(--shadow-hover-color);
+        }
+        .gallery-item:hover img,
+        .gallery-item:hover video {
+            transform: scale(1.06);
+        }
+        .gallery-item:hover .caption {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .teacher-card-container {
+            background: var(--card-bg);
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 6px 18px var(--shadow-color);
+        }
+        .teacher-card-container img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--accent-color);
+        }
+        .teacher-card-container h3 {
+            color: var(--primary-color); font-size: 1.8em; font-weight: 700;
+        }
+        .teacher-card-container h3 i { color: var(--accent-color); margin-right: 8px;}
+        .teacher-card-container .qualification {
+            font-size: 1em; color: var(--accent-color); font-weight: 500; margin-bottom: 8px;
+        }
+        .teacher-card-container .experience { color: #555e68; margin-bottom: 15px; font-size: 0.95em;}
+        .teacher-card-container .quote {
+            font-style: italic; color: #4A5568;
+            font-size: 1em;
+            padding: 15px; border-left: 3px solid var(--accent-color);
+            background-color: #F0F4F8;
+            border-radius: 0 5px 5px 0;
+            margin-top: 15px; display: inline-block; text-align: left;
+        }
+
+        .contact-wrapper .styled-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        .contact-info { flex: 1; min-width: 280px; }
+        .contact-info h3, .contact-form-container h3 {
+            color: var(--primary-color); font-weight: 600; font-size: 1.5em; margin-bottom: 18px;
+        }
+        .contact-info p { margin-bottom: 15px; font-size: 1em; display: flex; align-items: center;}
+        .contact-info p i { color: var(--accent-color); margin-right: 12px; font-size: 1.2em; width: 22px; text-align: center;}
+        .contact-info p a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+        .contact-info p a:hover { color: var(--accent-color); }
+
+        .contact-form-container { flex: 1.5; min-width: 280px; }
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            margin-bottom: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em;
+            background: #FBFCFE;
+            color: var(--text-color);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px rgba(var(--accent-color-rgb), 0.15);
+            outline: none;
+        }
+        textarea { resize: vertical; min-height: 120px; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.9em; color: #4A5568;}
+
+        .footer {
+            background: var(--primary-color);
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+        }
+        .footer .social-links { margin-bottom: 20px; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 42px; height: 42px;
+            margin: 0 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255, 0.12);
+            color: #ffffff;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.2em;
+        }
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: #ffffff;
+            transform: translateY(-4px);
+        }
+        .footer p { font-size: 0.9em; opacity: 0.9; }
+        .footer p a { color: #ffffff; text-decoration: none; font-weight: 500;}
+        .footer p a:hover { text-decoration: underline; color: var(--accent-color);}
+
+        /* Responsive Adjustments */
+        @media screen and (max-width: 992px) {
+             .hero-content h2 { font-size: 2.8em; }
+             .section-title { font-size: 2.1em; }
+        }
         @media screen and (max-width: 768px) {
-            .feature-box {
-                flex: 0 0 100%; /* Stack feature boxes */
-            }
-
-            .course-card {
-                margin-bottom: 30px;
-            }
-
-             .feature-section,
-             .course-card { /* Ensure consistent spacing on mobile */
-                margin-left: 0;
-                margin-right: 0;
-            }
-
-            .navbar a {
-                float: none; /* Stack navbar links */
-                text-align: left;
-            }
-            .navbar a:before {
-                 display: none; /* Hide underline effect on mobile nav */
-            }
+            .header h1 { font-size: 2.4em; }
+            .navbar-container { justify-content: space-around; padding: 0 10px;}
+            .navbar a { padding: 12px 8px; font-size: 0.85em; }
+            .hero-content h2 { font-size: 2.2em; }
+            .hero-content p { font-size: 1.05em; }
+            .section-title { font-size: 1.9em; }
+            .contact-wrapper .styled-card { flex-direction: column; }
+            .main-content { padding: 0 15px; }
         }
-         @media screen and (max-width: 480px) {
-             .hero-section {
-                 padding: 80px 15px; /* Reduce hero padding on very small screens */
-             }
-             .hero-content h2 {
-                 font-size: 1.8em; /* Adjust heading size */
-             }
-             .btn-primary {
-                  padding: 10px 20px; /* Smaller buttons */
-                  font-size: 14px;
-             }
-             .footer {
-                  padding: 20px 0; /* Reduce footer padding */
-             }
-             .social-links a {
-                  width: 35px;
-                  height: 35px;
-                  line-height: 35px;
-                  margin: 0 5px; /* Reduce spacing */
-             }
+        @media screen and (max-width: 480px) {
+            .header h1 { font-size: 2em; }
+            .hero-content h2 { font-size: 1.9em; }
+            .hero-content p { font-size: 1em; }
+            .btn-primary { padding: 12px 20px; font-size: 0.9em; }
+            .section-title { font-size: 1.7em; }
+            .stat-item { padding: 8px 12px; font-size: 0.8em;}
+            .social-links a { width: 38px; height: 38px; font-size: 1.1em;}
+            .course-image-placeholder {height: 140px; font-size: 2.5em;}
+            .navbar a { padding: 10px 6px; font-size: 0.8em; }
+            .login-box { padding: 30px 20px; }
+            .login-box h2 { font-size: 1.8em; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>අපේ ගණින පන්තිය</h1>
-        <p>ඔබේ ගණිත දැනුම වැඩිදියුණු කරගන්න</p>
-    </div>
 
-    <div class="navbar">
-        <a href="#home">මුල් පිටුව</a>
-        <a href="#courses">පාඨමාලා</a>
-        <a href="#teachers">ගුරුවරුන්</a>
-        <a href="#schedule">කාලසටහන</a> <a href="#contact">සම්බන්ධ වන්න</a>
-    </div>
-
-    <div class="hero-section" id="home">
-        <div class="hero-content animate__animated animate__fadeIn">
-            <h2 class="animate__animated animate__slideInDown">ඔබේ ගණිත අනාගතය සඳහා හොඳම තේරීම</h2>
-            <p class="animate__animated animate__slideInUp animate__delay-1s">අපගේ නිපුණ ගුරුවරුන් සමඟ ගණිතය ඉගෙන ගැනීම පහසු හා විනෝදජනක කරගන්න</p>
-            <a href="#contact" class="btn-primary animate__animated animate__bounceIn animate__delay-2s" style="text-decoration: none;">
-                 <i class="fas fa-graduation-cap" style="margin-right: 8px;"></i> දැන් ලියාපදිංචි වන්න
-             </a>
-            <div style="margin-top: 30px;" class="animate__animated animate__fadeIn animate__delay-3s">
-                <span style="background-color: rgba(255,255,255,0.2); padding: 8px 16px; margin: 5px 10px; border-radius: 20px; display: inline-block;">
-                    <i class="fas fa-users" style="margin-right: 5px;"></i> සිසුන් 50+
-                </span>
-                <span style="background-color: rgba(255,255,255,0.2); padding: 8px 16px; margin: 5px 10px; border-radius: 20px; display: inline-block;">
-                    <i class="fas fa-star" style="margin-right: 5px;"></i> ප්‍රතිඵල 95%+
-                </span>
-                <span style="background-color: rgba(255,255,255,0.2); padding: 8px 16px; margin: 5px 10px; border-radius: 20px; display: inline-block;">
-                    <i class="fas fa-certificate" style="margin-right: 5px;"></i> වසර 5+ පළපුරුද්ද
-                </span>
-            </div>
+    <div class="login-container" id="login-page">
+        <div class="login-box">
+            <h2><i class="fas fa-lock"></i> පිවිසෙන්න</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="email"><i class="fas fa-envelope"></i> විද්‍යුත් තැපෑල:</label>
+                    <input type="email" id="email" name="email" placeholder="ඔබේ විද්‍යුත් තැපෑල" required>
+                </div>
+                <div class="input-group">
+                    <label for="password"><i class="fas fa-key"></i> මුරපදය:</label>
+                    <input type="password" id="password" name="password" placeholder="ඔබේ මුරපදය" required>
+                </div>
+                <div class="error-message" id="loginError"></div>
+                <button type="submit"><i class="fas fa-sign-in-alt"></i> ඇතුළු වන්න</button>
+            </form>
         </div>
     </div>
+    <div id="content-wrapper" style="display: none;">
 
-    <div class="main-content">
-        <h2 class="section-title" data-aos="fade-right">අපේ පන්තිය ගැන</h2>
-        <p data-aos="fade-up">අපි සාමාන්‍ය පෙළ ගණිතය සඳහා සම්පූර්ණ පාඨමාලා ඉදිරිපත් කරමු. අපගේ ගුරුවරුන්ට දීර්ඝ පළපුරුද්දක් ඇති අතර, ඔවුන්ගේ විෂයය ක්ෂේත්‍රය පිළිබඳ ගැඹුරු දැනුමක් ඇත.</p>
+        <div class="header">
+            <h1><i class="fas fa-graduation-cap"></i> අපේ ගණිත පන්තිය</h1>
+            <p>ගණිත දැනුමෙන් අනාගතය ජයගන්න!</p>
+        </div>
 
-        <div class="feature-section">
-            <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
-                <div class="feature-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <h3>සුදුසුකම් ලත් ගුරුවරුන්</h3>
-                <p>අපගේ සියලුම ගුරුවරුන් තම විෂයය ක්ෂේත්‍රයේ නිපුණයන් වන අතර ගුරුවරයෙකු ලෙස දීර්ඝ පළපුරුද්දක් ඇත.</p>
-            </div>
-            <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
-                <div class="feature-icon">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                </div>
-                <h3>නවීන පහසුකම්</h3>
-                <p>zoom තාක්ෂණය ඔස්සෙ online පන්ති පැවැත්වීම</p>
-            </div>
-            <div class="feature-box" data-aos="fade-up" data-aos-delay="300">
-                <div class="feature-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <h3>ප්‍රවේශ වීමේ පහසුව</h3>
-                <p>අපගේ පන්ති ප්‍රධාන නගරය ආසන්නයේ පිහිටා ඇති අතර, ප්‍රවාහන ජාලයෙන් පහසුවෙන් ප්‍රවේශ විය හැකිය.</p>
+        <div class="navbar">
+            <div class="navbar-container">
+                <a href="#home" class="active">මුල් පිටුව</a>
+                <a href="#courses">පාඨමාලා</a>
+                <a href="recordings.html">පටිගත කිරීම්</a>
+                <a href="#gallery">ඡායාරූප/වීඩියෝ</a>
+                <a href="#teachers">ගුරුවරුන්</a>
+                <a href="#contact">සම්බන්ධ වන්න</a>
             </div>
         </div>
 
-        <h2 class="section-title" data-aos="fade-right" id="courses">අපගේ පාඨමාලා</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 30px;">
-
-            <div class="course-card" data-aos="flip-left" data-aos-delay="200" style="flex: 1; min-width: 300px;">
-                <div class="course-content">
-                    <h3>සාමාන්‍ය පෙළ ගණිතය</h3>
-                    <p>සාමාන්‍ය පෙළ විභාගයේ ඉහළ ලකුණු සඳහා සකස් කළ පාඨමාලාව.</p>
-                    <p><strong>පන්ති කාලය:</strong> ඉරිදා උදේ 8:00 - 12:00</p>
-                    <p><strong>ගාස්තුව:</strong> රු. 2500 මාසික</p>
-                    <a href="#contact" class="btn-primary" style="width: calc(100% - 50px); text-align: center; margin-top: 10px;">
-                        ලියාපදිංචි වන්න <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
+        <div class="main-content">
+            <div class="hero-section" id="home">
+                <div class="hero-content">
+                    <h2><span style="color:var(--accent-color);">ගණිතය</span> යනු තර්කයේ කාව්‍යයය.</h2>
+                    <p data-aos="slide-in-bottom" data-aos-delay="150">අප සමග එක්වී, ගණිතයේ මූලධර්ම සරලව, පැහැදිලිව සහ ආකර්ෂණීය ලෙස ඉගෙන ගනිමු. ඔබේ විභාග ජයගන්න, දැනුම පුළුල් කරගන්න.</p>
+                    <a href="#courses" class="btn-primary" data-aos="slide-in-bottom" data-aos-delay="300">
+                        <i class="fas fa-book-open"></i> අපේ පාඨමාලා බලන්න
                     </a>
-                </div>
-            </div>
-
-            <div class="course-card" data-aos="flip-left" data-aos-delay="300" style="flex: 1; min-width: 300px;">
-                <div class="course-content">
-                    <h3>6-9 ශ්‍රේණි ගණිතය</h3>
-                    <p>මූලික සංකල්ප ශක්තිමත් කරන පාඨමාලාව.</p>
-                    <p><strong>පන්ති කාලය:</strong> සෙනසුරාදා ප.ව 2:00 - 5:00</p>
-                    <p><strong>ගාස්තුව:</strong> රු. 2000 මාසික</p>
-                     <a href="#contact" class="btn-primary" style="width: calc(100% - 50px); text-align: center; margin-top: 10px;">
-                        ලියාපදිංචි වන්න <i class="fas fa-arrow-right" style="margin-left: 5px;"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title" data-aos="fade-right" id="teachers">ඔබේ ගුරුතුමා</h2>
-        <div class="card" data-aos="fade-up" data-aos-delay="100">
-            <h3><i class="fas fa-user-tie" style="color: #4a1d79; margin-right: 10px;"></i> දිසල දෙව්තිළිණ</h3>
-            <p>වසර 5 පළපුරුද්ද</p>
-        </div>
-
-
-        <h2 class="section-title" id="contact" data-aos="fade-right">අප හා සම්බන්ධ වන්න</h2>
-        <div class="card" data-aos="fade-up">
-            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-                <div style="flex: 1; min-width: 300px;">
-                    <p><i class="fas fa-map-marker-alt" style="color: #4a1d79; margin-right: 10px;"></i> <strong>ලිපිනය:</strong> අංක 32/2 කඩවල,දූනගහ</p>
-                    <p><i class="fas fa-phone" style="color: #4a1d79; margin-right: 10px;"></i> <strong>දුරකථන:</strong> 0772896110</p>
-                    <p><i class="fas fa-envelope" style="color: #4a1d79; margin-right: 10px;"></i> <strong>විද්‍යුත් තැපෑල:</strong> info@apegananpanthiya.lk</p>
-                </div>
-
-                <div style="flex: 1; min-width: 300px;">
-                     <h3 style="margin-top: 0px;"> අපට පණිවිඩයක් යවන්න</h3>
-                    <form action="https://formspree.io/f/moveyggp" method="POST" style="margin-top: 15px;">
-                        <div style="margin-bottom: 15px;">
-                            <label for="name">ඔබේ නම:</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label for="email">ඔබේ විද්‍යුත් තැපෑල:</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <label for="message">ඔබේ පණිවිඩය:</label>
-                            <textarea id="message" name="message" rows="4" required></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary">
-                            <i class="fas fa-paper-plane" style="margin-right: 8px;"></i> යවන්න
-                        </button>
-                    </form>
+                    <div style="margin-top: 40px;" data-aos="fade-up" data-aos-delay="400">
+                        <span class="stat-item"><i class="fas fa-user-check"></i> සාර්ථක සිසුන් 50+</span>
+                        <span class="stat-item"><i class="fas fa-clipboard-check"></i> ඉහළ ප්‍රතිඵල 95%+</span>
+                        <span class="stat-item"><i class="fas fa-chalkboard-teacher"></i> වසර 5+ පළපුරුද්ද</span>
                     </div>
+                </div>
+            </div>
+
+            <div class="section about-us-section" id="about">
+                <h2 class="section-title" data-aos="fade-up">අපි ගැන</h2>
+                <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; max-width: 750px; margin: 0 auto 30px auto; font-size: 1.05em; color: #4A5568;">
+                    සාමාන්‍ය පෙළ සහ 6-9 ශ්‍රේණි දරුවන් සඳහා ගණිත විෂය පහසුවෙන් අවබෝධ කර දීම අපගේ අරමුණයි. වසර ගණනාවක පළපුරුදු, සුදුසුකම් ලත් ගුරු මඩුල්ලක් යටතේ, සිසුන්ට විෂය කරුණු පැහැදිලිව කියා දීමටත්, විභාග සඳහා ඔවුන්ව හොඳින් සූදානම් කිරීමටත් අපි කැපවී සිටිමු.
+                </p>
+            </div>
+
+            <div class="section features-wrapper" id="features">
+                <h2 class="section-title" data-aos="fade-up">අපගේ සේවාවන්</h2>
+                <div class="card-grid">
+                    <div class="styled-card feature-box" data-aos="fade-up" data-aos-delay="100">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <h3>පළපුරුදු ගුරුවරු</h3>
+                        <p>විෂය පිළිබඳ මනා දැනුමක් සහ ඉගැන්වීමේ පළපුරුද්දක් ඇති සුදුසුකම් ලත් ගුරුවරු.</p>
+                    </div>
+                    <div class="styled-card feature-box" data-aos="fade-up" data-aos-delay="200">
+                        <div class="feature-icon"><i class="fas fa-tv"></i></div>
+                        <h3>Online / Physical පන්ති</h3>
+                        <p>Zoom තාක්ෂණය ඔස්සේ Online පන්ති සහ පහසු ස්ථානයක පැවැත්වෙන භෞතික පන්ති.</p>
+                    </div>
+                    <div class="styled-card feature-box" data-aos="fade-up" data-aos-delay="300">
+                        <div class="feature-icon"><i class="fas fa-pencil-alt"></i></div>
+                        <h3>නිබන්ධන සහ ප්‍රශ්න පත්‍ර</h3>
+                        <p>සෑම පාඩමක් සඳහාම පැහැදිලි නිබන්ධන සහ විභාග ඉලක්ක කරගත් ප්‍රශ්න පත්‍ර සාකච්ඡාව.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section courses-wrapper" id="courses">
+                <h2 class="section-title" data-aos="fade-up">අපගේ පාඨමාලා</h2>
+                <div class="card-grid">
+                    <div class="styled-card course-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="course-image-placeholder"><i class="fas fa-calculator"></i></div>
+                        <div class="course-content">
+                            <h3>සාමාන්‍ය පෙළ ගණිතය</h3>
+                            <p>සම්පූර්ණ විෂය නිර්දේශය ආවරණය කරමින්, විභාගයට අවශ්‍ය සියලුම සිද්ධාන්ත සහ ගැටලු විසඳීම.</p>
+                            <p><strong><i class="far fa-calendar-alt"></i> කාලය:</strong> ඉරිදා උදේ 8:00 - 12:00</p>
+                            <p><strong><i class="fas fa-money-bill-wave"></i> ගාස්තුව:</strong> රු. 2500 (මාසික)</p>
+                            <a href="#contact" class="btn-primary"><i class="fas fa-user-plus"></i> ලියාපදිංචි වන්න</a>
+                        </div>
+                    </div>
+                    <div class="styled-card course-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="course-image-placeholder"><i class="fas fa-shapes"></i></div>
+                        <div class="course-content">
+                            <h3>6-9 ශ්‍රේණි ගණිතය</h3>
+                            <p>ගණිතයේ මූලික දැනුම ශක්තිමත් කරමින්, විෂය කෙරෙහි උනන්දුවක් ඇතිකරවන සරල ඉගැන්වීම්.</p>
+                            <p><strong><i class="far fa-calendar-alt"></i> කාලය:</strong> සෙනසුරාදා ප.ව 2:00 - 5:00</p>
+                            <p><strong><i class="fas fa-money-bill-wave"></i> ගාස්තුව:</strong> රු. 2000 (මාසික)</p>
+                            <a href="#contact" class="btn-primary"><i class="fas fa-user-plus"></i> ලියාපදිංචි වන්න</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section gallery-wrapper" id="gallery">
+                <h2 class="section-title" data-aos="fade-up">අපේ පන්ති කාමරයේ දසුන් (ඡායාරූප සහ වීඩියෝ)</h2>
+                <div class="card-grid">
+                     <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                         <img src="/api/placeholder/350/250?text=පන්ති+දර්ශනය+1&bgColor=0077B6&textColor=FFFFFF" alt="පන්ති දර්ශනය 1">
+                         <div class="caption">උනන්දුවෙන් ඉගෙන ගන්නා සිසුන්</div>
+                     </div>
+                     <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150">
+                          <img src="/api/placeholder/350/250?text=Online+ඉගැන්වීම්&bgColor=48BB78&textColor=FFFFFF" alt="Online ඉගැන්වීම්">
+                         <div class="caption">Online පන්ති සැසියක්</div>
+                     </div>
+
+                     <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                         <video poster="/api/placeholder/350/250?text=Video+Poster&bgColor=333333&textColor=FFFFFF" controls>
+                             <source src="your-video-path.mp4" type="video/mp4">
+                             <source src="your-video-path.webm" type="video/webm">
+                             ඔබගේ බ්‍රවුසරය මෙම වීඩියෝ ආකෘතියට සහය නොදක්වයි.
+                         </video>
+                         <div class="caption">පන්ති කාමරයේ වීඩියෝ දර්ශනයක්</div>
+                     </div>
+
+                     <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250">
+                         <img src="/api/placeholder/350/250?text=සාකච්ඡා+කිරීම්&bgColor=0077B6&textColor=FFFFFF" alt="සාකච්ඡා කිරීම්">
+                         <div class="caption">ගැටලු සාකච්ඡා කරන අවස්ථාවක්</div>
+                     </div>
+                </div>
+            </div>
+
+            <div class="section teacher-wrapper" id="teachers">
+                <h2 class="section-title" data-aos="fade-up">ඔබේ ගුරුතුමා</h2>
+                <div class="teacher-card-container" data-aos="fade-up" data-aos-delay="100">
+                    <img src="images/IMG_0647.JPG" alt="උගන්වන්නා">
+                    <h3><i class="fas fa-user-tie"></i> දිසල දෙව්තිළිණ</h3>
+                    <p class="qualification">BSc (Hons) Engineering</p>
+                    <p class="experience">වසර 5+ ක්ෂේත්‍රයේ ඉගැන්වීමේ පළපුරුද්ද</p>
+                    <p class="quote">"ගණිතය යනු බිය විය යුතු විෂයක් නොවේ. එය තේරුම් ගත් විට ඉතාමත් රසවත්. ඒ රසය ඔබටත් ලබා දීමට මම සූදානම්."</p>
+                </div>
+            </div>
+
+            <div class="section contact-wrapper" id="contact">
+                <h2 class="section-title" data-aos="fade-up">අප හා සම්බන්ධ වන්න</h2>
+                <div class="styled-card">
+                    <div class="contact-info" data-aos="fade-right" data-aos-delay="100">
+                        <h3><i class="fas fa-phone-alt"></i> විමසීම්</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>ලිපිනය:</strong> අංක 32/2, කඩවල, දූනගහ.</p>
+                        <p><i class="fas fa-mobile-alt"></i> <strong>දුරකථන:</strong> <a href="tel:0772896110">077-2896110</a></p>
+                        <p><i class="fas fa-envelope"></i> <strong>විද්‍යුත් තැපෑල:</strong> <a href="mailto:info@apegananpanthiya.lk">info@apegananpanthiya.lk</a></p>
+                        <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> <a href="https://wa.me/+94772896110" target="_blank">077-2896110</a></p>
+                    </div>
+                    <div class="contact-form-container" data-aos="fade-left" data-aos-delay="150">
+                        <h3><i class="fas fa-paper-plane"></i> පණිවිඩයක් යවන්න</h3>
+                        <form action="https://formspree.io/f/moveyggp" method="POST">
+                            <div><label for="name">ඔබේ නම:</label><input type="text" id="name" name="name" placeholder="සම්පූර්ණ නම" required></div>
+                            <div><label for="email_contact">විද්‍යුත් තැපෑල:</label><input type="email" id="email_contact" name="email" placeholder="your.email@example.com" required></div> <div><label for="message">පණිවිඩය:</label><textarea id="message" name="message" rows="4" placeholder="ඔබේ පණිවිඩය..." required></textarea></div>
+                            <button type="submit" class="btn-primary" style="width:100%;"><i class="fas fa-envelope-open-text"></i> යවන්න</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>&copy; 2025 අපේ ගණීන පන්තිය. සියලුම හිමිකම් ඇවිරිණි.</p> <div class="social-links" style="margin-top: 20px;">
-            <a href="https://www.facebook.com/share/16Z4KhFsdo/?mibextid=wwXIfr" class="social-link" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-facebook-f"></i> </a>
-            <a href="https://wa.me/+94772896110" class="social-link" target="_blank" rel="noopener noreferrer"> <i class="fab fa-whatsapp"></i>
-            </a>
-            <a href="#" class="social-link"> <i class="fab fa-youtube"></i>
-            </a>
-            <a href="#" class="social-link"> <i class="fab fa-instagram"></i>
-            </a>
+        <div class="footer">
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/16Z4KhFsdo/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/+94772896110" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>&copy; <span id="currentYear"></span> අපේ ගණිත පන්තිය. සියලුම හිමිකම් ඇවිරිණි.</p>
+            <p>නිර්මාණය සහ සංවර්ධනය <a href="#">Elegant Web Creations</a> විසිනි.</p>
         </div>
-    </div>
 
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            AOS.init({
-                duration: 1000,
-                once: true // Animation happens only once
+            // --- Client-Side Login Logic ---
+            const loginForm = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const loginError = document.getElementById('loginError');
+            const loginPage = document.getElementById('login-page');
+            const contentWrapper = document.getElementById('content-wrapper');
+
+            // Hardcoded credentials (!!! INSECURE !!!)
+            const correctEmail = 'gaindu@gmail.com'; // ඔබට අවශ්‍ය විද්‍යුත් තැපෑල මෙහි දමන්න
+            const correctPassword = '123'; // ඔබට අවශ්‍ය මුරපදය මෙහි දමන්න
+
+            // Check if the user is already "logged in" (based on a flag in sessionStorage)
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                showContent();
+            } else {
+                loginPage.style.display = 'flex'; // Show login form
+                contentWrapper.style.display = 'none'; // Hide main content
+            }
+
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent actual form submission
+
+                const enteredEmail = emailInput.value;
+                const enteredPassword = passwordInput.value;
+
+                if (enteredEmail === correctEmail && enteredPassword === correctPassword) {
+                    // Login successful
+                    loginError.textContent = ''; // Clear any previous error
+                    sessionStorage.setItem('isLoggedIn', 'true'); // Set flag for session
+                    showContent(); // Show the main content
+                } else {
+                    // Login failed
+                    loginError.textContent = 'වැරදි විද්‍යුත් තැපෑල හෝ මුරපදය!'; // Display error message
+                }
             });
+
+            function showContent() {
+                 loginPage.style.display = 'none'; // Hide login form
+                 contentWrapper.style.display = 'block'; // Show main content
+                 // Re-initialize AOS after content is shown
+                 AOS.init({
+                    duration: 700,
+                    easing: 'ease-out-cubic',
+                    once: true,
+                    offset: 80,
+                 });
+                  // Manually trigger AOS for elements already in view
+                 document.querySelectorAll('[data-aos]').forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight && el.getBoundingClientRect().bottom > 0) {
+                        AOS.refreshHard(); // Use refreshHard to re-calculate positions and trigger animations
+                    }
+                 });
+                 // Also ensure navbar active state is set correctly on load
+                 makeLinksActive();
+            }
+            // --- End Client-Side Login Logic ---
+
+
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            const navLinks = document.querySelectorAll('.navbar a');
+            // Get navbar height dynamically after potential display change
+            let navbarHeight = 0; // Initialize to 0
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Only perform smooth scroll if content is visible
+                    if (contentWrapper.style.display !== 'none' && this.hash !== "") {
+                         e.preventDefault();
+                         navbarHeight = document.querySelector('.navbar').offsetHeight; // Get current height
+                         const hash = this.hash;
+                         const targetElement = document.querySelector(hash);
+                         if(targetElement) {
+                             // Adjust scroll position considering fixed navbar height and an offset
+                             const offsetTop = targetElement.offsetTop - navbarHeight - 20;
+                             window.scrollTo({ top: offsetTop, behavior: "smooth" });
+                         }
+                    } else if (this.hash !== "") {
+                         e.preventDefault(); // Prevent default navigation even if content is hidden
+                    }
+                });
+            });
+
+             // Function to set active class on navbar links based on scroll position
+             const sections = document.querySelectorAll('.section, .hero-section');
+             const makeLinksActive = () => {
+                 // Only run if content is visible
+                 if (contentWrapper.style.display !== 'none') {
+                     navbarHeight = document.querySelector('.navbar').offsetHeight; // Get current height
+                     let currentSectionId = 'home'; // Default section ID
+                     sections.forEach(section => {
+                         // Adjust the section's top position by the navbar height and an offset
+                         const sectionTop = section.offsetTop - navbarHeight - 50;
+                         if (window.pageYOffset >= sectionTop) {
+                             currentSectionId = section.getAttribute('id');
+                         }
+                     });
+
+                     navLinks.forEach(link => {
+                         link.classList.remove('active');
+                         // Compare the hash part of the link's href with the current section ID
+                         if (link.getAttribute('href') && link.getAttribute('href').substring(1) === currentSectionId) {
+                             link.classList.add('active');
+                         }
+                         // Handle the "පටිගත කිරීම්" link which goes to recordings.html - it won't be active on the main page
+                         if (link.getAttribute('href') === 'recordings.html') {
+                              link.classList.remove('active');
+                         }
+                     });
+                 }
+             }
+
+            // Add scroll listener only if content is visible initially or after login
+            if (isLoggedIn === 'true') {
+                 window.addEventListener('scroll', makeLinksActive);
+                 // Initial check on load
+                 makeLinksActive();
+            }
+
+
+            // Adjust scroll and active links when window is resized
+            window.addEventListener('resize', () => {
+                if (contentWrapper.style.display !== 'none') {
+                    navbarHeight = document.querySelector('.navbar').offsetHeight;
+                    makeLinksActive(); // Re-calculate active link
+                }
+            });
+
         });
     </script>
 </body>
